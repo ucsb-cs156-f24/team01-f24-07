@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Entity(name = "helprequest")
+@Entity(name = "helprequests")
 public class HelpRequest {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,5 +31,5 @@ public class HelpRequest {
   private String tableOrBreakoutRoom;
   private LocalDateTime requestTime;
   private String explanation;
-  private boolean solved;
+  private Boolean solved;
 }
