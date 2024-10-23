@@ -1,9 +1,3 @@
----
-noteId: "914a94628ce811ef9eb8b1d1d3f5578f"
-tags: []
-
----
-
 # H2 Database
 
 When running on localhost, this code base uses a temporary database built on a technology called H2.

@@ -1,9 +1,3 @@
----
-noteId: "914a94618ce811ef9eb8b1d1d3f5578f"
-tags: []
-
----
-
 # Github Pages
 
 This repo contains Github Actions workflows (under the `.github/workflows` directory) that
