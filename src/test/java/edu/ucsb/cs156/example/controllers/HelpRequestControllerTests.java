@@ -210,125 +210,137 @@ public class HelpRequestControllerTests extends ControllerTestCase {
                 assertEquals(expectedJson, responseString);
         }
 
-        // @WithMockUser(roles = { "ADMIN", "USER" })
-        // @Test
-        // public void admin_can_delete_a_date() throws Exception {
-        //         // arrange
+        @WithMockUser(roles = { "ADMIN", "USER" })
+        @Test
+        public void admin_can_delete_a_helprequest() throws Exception {
+                // arrange
 
-        //         LocalDateTime ldt1 = LocalDateTime.parse("2022-01-03T00:00:00");
+                LocalDateTime ldt1 = LocalDateTime.parse("2022-01-03T00:00:00");
 
-        //         UCSBDate ucsbDate1 = UCSBDate.builder()
-        //                         .name("firstDayOfClasses")
-        //                         .quarterYYYYQ("20222")
-        //                         .localDateTime(ldt1)
-        //                         .build();
+                HelpRequest helpRequest1 = HelpRequest.builder()
+                        .requesterEmail("a")
+                        .teamId("a")
+                        .requestTime(ldt1)
+                        .tableOrBreakoutRoom("a")
+                        .explanation("a")
+                        .solved(false)
+                        .build();
 
-        //         when(ucsbDateRepository.findById(eq(15L))).thenReturn(Optional.of(ucsbDate1));
+                when(helpRequestRepository.findById(eq(15L))).thenReturn(Optional.of(helpRequest1));
 
-        //         // act
-        //         MvcResult response = mockMvc.perform(
-        //                         delete("/api/ucsbdates?id=15")
-        //                                         .with(csrf()))
-        //                         .andExpect(status().isOk()).andReturn();
+                // act
+                MvcResult response = mockMvc.perform(
+                                delete("/api/helprequests?id=15")
+                                                .with(csrf()))
+                                .andExpect(status().isOk()).andReturn();
 
-        //         // assert
-        //         verify(ucsbDateRepository, times(1)).findById(15L);
-        //         verify(ucsbDateRepository, times(1)).delete(any());
+                // assert
+                verify(helpRequestRepository, times(1)).findById(15L);
+                verify(helpRequestRepository, times(1)).delete(any());
 
-        //         Map<String, Object> json = responseToJson(response);
-        //         assertEquals("UCSBDate with id 15 deleted", json.get("message"));
-        // }
+                Map<String, Object> json = responseToJson(response);
+                assertEquals("HelpRequest with id 15 deleted", json.get("message"));
+        }
 
-        // @WithMockUser(roles = { "ADMIN", "USER" })
-        // @Test
-        // public void admin_tries_to_delete_non_existant_ucsbdate_and_gets_right_error_message()
-        //                 throws Exception {
-        //         // arrange
+        @WithMockUser(roles = { "ADMIN", "USER" })
+        @Test
+        public void admin_tries_to_delete_non_existant_helprequest_and_gets_right_error_message()
+                        throws Exception {
+                // arrange
 
-        //         when(ucsbDateRepository.findById(eq(15L))).thenReturn(Optional.empty());
+                when(helpRequestRepository.findById(eq(15L))).thenReturn(Optional.empty());
 
-        //         // act
-        //         MvcResult response = mockMvc.perform(
-        //                         delete("/api/ucsbdates?id=15")
-        //                                         .with(csrf()))
-        //                         .andExpect(status().isNotFound()).andReturn();
+                // act
+                MvcResult response = mockMvc.perform(
+                                delete("/api/helprequests?id=15")
+                                                .with(csrf()))
+                                .andExpect(status().isNotFound()).andReturn();
 
-        //         // assert
-        //         verify(ucsbDateRepository, times(1)).findById(15L);
-        //         Map<String, Object> json = responseToJson(response);
-        //         assertEquals("UCSBDate with id 15 not found", json.get("message"));
-        // }
+                // assert
+                verify(helpRequestRepository, times(1)).findById(15L);
+                Map<String, Object> json = responseToJson(response);
+                assertEquals("HelpRequest with id 15 not found", json.get("message"));
+        }
 
-        // @WithMockUser(roles = { "ADMIN", "USER" })
-        // @Test
-        // public void admin_can_edit_an_existing_ucsbdate() throws Exception {
-        //         // arrange
+        @WithMockUser(roles = { "ADMIN", "USER" })
+        @Test
+        public void admin_can_edit_an_existing_helprequest() throws Exception {
+                // arrange
 
-        //         LocalDateTime ldt1 = LocalDateTime.parse("2022-01-03T00:00:00");
-        //         LocalDateTime ldt2 = LocalDateTime.parse("2023-01-03T00:00:00");
+                LocalDateTime ldt1 = LocalDateTime.parse("2022-01-03T00:00:00");
+                LocalDateTime ldt2 = LocalDateTime.parse("2023-01-03T00:00:00");
 
-        //         UCSBDate ucsbDateOrig = UCSBDate.builder()
-        //                         .name("firstDayOfClasses")
-        //                         .quarterYYYYQ("20222")
-        //                         .localDateTime(ldt1)
-        //                         .build();
+                HelpRequest helpRequestOrig = HelpRequest.builder()
+                                .requesterEmail("a@gmail.com")
+                                .teamId("07")
+                                .requestTime(ldt1)
+                                .tableOrBreakoutRoom("table a")
+                                .explanation("a help is needs")
+                                .solved(false)
+                                .build();
 
-        //         UCSBDate ucsbDateEdited = UCSBDate.builder()
-        //                         .name("firstDayOfFestivus")
-        //                         .quarterYYYYQ("20232")
-        //                         .localDateTime(ldt2)
-        //                         .build();
+                HelpRequest helpRequestEdited = HelpRequest.builder()
+                                .requesterEmail("b@gmail.com")
+                                .teamId("03")
+                                .requestTime(ldt2)
+                                .tableOrBreakoutRoom("table 03")
+                                .explanation("slack broke")
+                                .solved(true)
+                                .build();
 
-        //         String requestBody = mapper.writeValueAsString(ucsbDateEdited);
+                String requestBody = mapper.writeValueAsString(helpRequestEdited);
 
-        //         when(ucsbDateRepository.findById(eq(67L))).thenReturn(Optional.of(ucsbDateOrig));
+                when(helpRequestRepository.findById(eq(67L))).thenReturn(Optional.of(helpRequestOrig));
 
-        //         // act
-        //         MvcResult response = mockMvc.perform(
-        //                         put("/api/ucsbdates?id=67")
-        //                                         .contentType(MediaType.APPLICATION_JSON)
-        //                                         .characterEncoding("utf-8")
-        //                                         .content(requestBody)
-        //                                         .with(csrf()))
-        //                         .andExpect(status().isOk()).andReturn();
+                // act
+                MvcResult response = mockMvc.perform(
+                                put("/api/helprequests?id=67")
+                                                .contentType(MediaType.APPLICATION_JSON)
+                                                .characterEncoding("utf-8")
+                                                .content(requestBody)
+                                                .with(csrf()))
+                                .andExpect(status().isOk()).andReturn();
 
-        //         // assert
-        //         verify(ucsbDateRepository, times(1)).findById(67L);
-        //         verify(ucsbDateRepository, times(1)).save(ucsbDateEdited); // should be saved with correct user
-        //         String responseString = response.getResponse().getContentAsString();
-        //         assertEquals(requestBody, responseString);
-        // }
+                // assert
+                verify(helpRequestRepository, times(1)).findById(67L);
+                verify(helpRequestRepository, times(1)).save(helpRequestEdited); // should be saved with correct user
+                String responseString = response.getResponse().getContentAsString();
+                assertEquals(requestBody, responseString);
+        }
 
-        // @WithMockUser(roles = { "ADMIN", "USER" })
-        // @Test
-        // public void admin_cannot_edit_ucsbdate_that_does_not_exist() throws Exception {
-        //         // arrange
+        @WithMockUser(roles = { "ADMIN", "USER" })
+        @Test
+        public void admin_cannot_edit_helprequest_that_does_not_exist() throws Exception {
+                // arrange
 
-        //         LocalDateTime ldt1 = LocalDateTime.parse("2022-01-03T00:00:00");
+                LocalDateTime ldt1 = LocalDateTime.parse("2022-01-03T00:00:00");
 
-        //         UCSBDate ucsbEditedDate = UCSBDate.builder()
-        //                         .name("firstDayOfClasses")
-        //                         .quarterYYYYQ("20222")
-        //                         .localDateTime(ldt1)
-        //                         .build();
+                HelpRequest helpRequestEdited = HelpRequest.builder()
+                                .requesterEmail("a@gmail.com")
+                                .teamId("07")
+                                .requestTime(ldt1)
+                                .tableOrBreakoutRoom("table a")
+                                .explanation("a help is needs")
+                                .solved(false)
+                                .build();
 
-        //         String requestBody = mapper.writeValueAsString(ucsbEditedDate);
+                String requestBody = mapper.writeValueAsString(helpRequestEdited);
 
-        //         when(ucsbDateRepository.findById(eq(67L))).thenReturn(Optional.empty());
+                when(helpRequestRepository.findById(eq(67L))).thenReturn(Optional.empty());
 
-        //         // act
-        //         MvcResult response = mockMvc.perform(
-        //                         put("/api/ucsbdates?id=67")
-        //                                         .contentType(MediaType.APPLICATION_JSON)
-        //                                         .characterEncoding("utf-8")
-        //                                         .content(requestBody)
-        //                                         .with(csrf()))
-        //                         .andExpect(status().isNotFound()).andReturn();
+                // act
+                MvcResult response = mockMvc.perform(
+                                put("/api/helprequests?id=67")
+                                                .contentType(MediaType.APPLICATION_JSON)
+                                                .characterEncoding("utf-8")
+                                                .content(requestBody)
+                                                .with(csrf()))
+                                .andExpect(status().isNotFound()).andReturn();
 
-        //         // assert
-        //         verify(ucsbDateRepository, times(1)).findById(67L);
-        //         Map<String, Object> json = responseToJson(response);
-        //         assertEquals("UCSBDate with id 67 not found", json.get("message"));
+                // assert
+                verify(helpRequestRepository, times(1)).findById(67L);
+                Map<String, Object> json = responseToJson(response);
+                assertEquals("HelpRequest with id 67 not found", json.get("message"));
 
-        // }
+        }
 }
