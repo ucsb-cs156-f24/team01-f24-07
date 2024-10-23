@@ -55,21 +55,21 @@ import java.time.LocalDateTime;
     }
 
     /**
-     * Get a single date by id
+     * Get a single help request by id
      * 
-     * @param id the id of the date
-     * @return a UCSBDate
+     * @param id the id of the help request
+     * @return a HelpRequest
      */
-    // @Operation(summary= &quot;Get a single date&quot;)
-    // @PreAuthorize(&quot;hasRole('ROLE_USER')&quot;)
-    // @GetMapping(&quot;&quot;)
-    // public UCSBDate getById(
-    //         @Parameter(name=&quot;id&quot;) @RequestParam Long id) {
-    //     UCSBDate ucsbDate = ucsbDateRepository.findById(id)
-    //             .orElseThrow(() -&gt; new EntityNotFoundException(UCSBDate.class, id));
-
-    //     return ucsbDate;
-    // }
+    @Operation(summary= &quot;Get a single help request&quot;)
+    @PreAuthorize(&quot;hasRole('ROLE_USER')&quot;)
+    @GetMapping(&quot;&quot;)
+    public HelpRequest getById(
+            @Parameter(name=&quot;id&quot;) @RequestParam Long id) {
+<span class="fc" id="L68">            HelpRequest helpRequest = helpRequestRepository.findById(id)</span>
+<span class="fc" id="L69">                .orElseThrow(() -&gt; new EntityNotFoundException(HelpRequest.class, id));</span>
+                
+<span class="fc" id="L71">        return helpRequest;</span>
+    }
 
     /**
      * Create a new help request
