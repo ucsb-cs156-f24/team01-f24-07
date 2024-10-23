@@ -134,7 +134,7 @@ public class ArticlesControllerTests extends ControllerTestCase {
 
         @WithMockUser(roles = { "USER" })
         @Test
-        public void logged_in_user_can_get_all_ucsbdates() throws Exception {
+        public void logged_in_user_can_get_all_articles() throws Exception {
 
                 // arrange
                 LocalDateTime ldt1 = LocalDateTime.parse("2022-01-03T00:00:00");
@@ -176,7 +176,7 @@ public class ArticlesControllerTests extends ControllerTestCase {
 
         @WithMockUser(roles = { "ADMIN", "USER" })
         @Test
-        public void an_admin_user_can_post_a_new_ucsbdate() throws Exception {
+        public void an_admin_user_can_post_a_new_article() throws Exception {
                 // arrange
 
                 LocalDateTime ldt1 = LocalDateTime.parse("2022-01-03T00:00:00");
