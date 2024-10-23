@@ -112,23 +112,23 @@ import java.time.LocalDateTime;
 <span class="fc" id="L112">        return savedHelpRequest;</span>
     }
 
-    // /**
-    //  * Delete a UCSBDate
-    //  * 
-    //  * @param id the id of the date to delete
-    //  * @return a message indicating the date was deleted
-    //  */
-    // @Operation(summary= &quot;Delete a UCSBDate&quot;)
-    // @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
-    // @DeleteMapping(&quot;&quot;)
-    // public Object deleteUCSBDate(
-    //         @Parameter(name=&quot;id&quot;) @RequestParam Long id) {
-    //     UCSBDate ucsbDate = ucsbDateRepository.findById(id)
-    //             .orElseThrow(() -&gt; new EntityNotFoundException(UCSBDate.class, id));
+    /**
+     * Delete a HelpRequest
+     * 
+     * @param id the id of the help request to delete
+     * @return a message indicating the help request was deleted
+     */
+    @Operation(summary= &quot;Delete a HelpRequest&quot;)
+    @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
+    @DeleteMapping(&quot;&quot;)
+    public Object deleteUCSBDate(
+            @Parameter(name=&quot;id&quot;) @RequestParam Long id) {
+<span class="fc" id="L126">        HelpRequest helpRequest = helpRequestRepository.findById(id)</span>
+<span class="fc" id="L127">                .orElseThrow(() -&gt; new EntityNotFoundException(HelpRequest.class, id));</span>
 
-    //     ucsbDateRepository.delete(ucsbDate);
-    //     return genericMessage(&quot;UCSBDate with id %s deleted&quot;.formatted(id));
-    // }
+<span class="fc" id="L129">        helpRequestRepository.delete(helpRequest);</span>
+<span class="fc" id="L130">        return genericMessage(&quot;HelpRequest with id %s deleted&quot;.formatted(id));</span>
+    }
 
     /**
      * Update a single date
