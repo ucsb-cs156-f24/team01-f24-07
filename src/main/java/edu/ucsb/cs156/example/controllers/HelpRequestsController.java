@@ -131,28 +131,32 @@ public class HelpRequestsController extends ApiController {
     // }
 
     /**
-     * Update a single date
+     * Update a single help request
      * 
-     * @param id       id of the date to update
-     * @param incoming the new date
-     * @return the updated date object
+     * @param id       id of the help request to update
+     * @param incoming the new help request
+     * @return the updated help request object
      */
-    // @Operation(summary= "Update a single date")
-    // @PreAuthorize("hasRole('ROLE_ADMIN')")
-    // @PutMapping("")
-    // public UCSBDate updateUCSBDate(
-    //         @Parameter(name="id") @RequestParam Long id,
-    //         @RequestBody @Valid UCSBDate incoming) {
+    @Operation(summary= "Update a single help request")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PutMapping("")
+    public HelpRequest updateHelpRequest(
+            @Parameter(name="id") @RequestParam Long id,
+            @RequestBody @Valid HelpRequest incoming) {
 
-    //     UCSBDate ucsbDate = ucsbDateRepository.findById(id)
-    //             .orElseThrow(() -> new EntityNotFoundException(UCSBDate.class, id));
+        HelpRequest helpRequest = helpRequestRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(HelpRequest.class, id));
 
-    //     ucsbDate.setQuarterYYYYQ(incoming.getQuarterYYYYQ());
-    //     ucsbDate.setName(incoming.getName());
-    //     ucsbDate.setLocalDateTime(incoming.getLocalDateTime());
+        helpRequest.setRequesterEmail(incoming.getRequesterEmail());
+        helpRequest.setExplanation(incoming.getExplanation());
+        helpRequest.setSolved(incoming.getSolved());
+        helpRequest.setTableOrBreakoutRoom(incoming.getTableOrBreakoutRoom());
+        helpRequest.setRequestTime(incoming.getRequestTime());
+        helpRequest.setTeamId(incoming.getTeamId());
 
-    //     ucsbDateRepository.save(ucsbDate);
+    
+        helpRequestRepository.save(helpRequest);
 
-    //     return ucsbDate;
-    // }
+        return helpRequest;
+    }
 }
