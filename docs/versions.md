@@ -1,3 +1,9 @@
+---
+noteId: "914a94638ce811ef9eb8b1d1d3f5578f"
+tags: []
+
+---
+
 # Updating Versions of Java and/or node
 
 ## Updating the Java version

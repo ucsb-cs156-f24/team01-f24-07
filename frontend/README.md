@@ -1,3 +1,9 @@
+---
+noteId: "914ae2808ce811ef9eb8b1d1d3f5578f"
+tags: []
+
+---
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

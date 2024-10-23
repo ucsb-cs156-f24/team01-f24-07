@@ -1,3 +1,9 @@
+---
+noteId: "914abb718ce811ef9eb8b1d1d3f5578f"
+tags: []
+
+---
+
 # OAuth Setup
 
 This Spring Boot application is set up to use Google OAuth as it's authentication scheme.

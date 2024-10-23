@@ -1,3 +1,9 @@
+---
+noteId: "914a94608ce811ef9eb8b1d1d3f5578f"
+tags: []
+
+---
+
 
 # Deploying on Dokku
 

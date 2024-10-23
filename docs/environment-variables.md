@@ -1,3 +1,9 @@
+---
+noteId: "914abb708ce811ef9eb8b1d1d3f5578f"
+tags: []
+
+---
+
 # Environment Variables are set up in `.env.SAMPLE`
 
 Any environment variables  needed in the application should be put into `.env.SAMPLE`

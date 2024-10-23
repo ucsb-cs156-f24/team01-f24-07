@@ -1,3 +1,9 @@
+---
+noteId: "914a46408ce811ef9eb8b1d1d3f5578f"
+tags: []
+
+---
+
 # STARTER-team01
 
 Instructions: <https://ucsb-cs156.github.io/f24/lab/team01.html>
