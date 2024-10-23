@@ -55,6 +55,23 @@ public class ArticlesController extends ApiController {
     }
 
     /**
+     * Get a single article by id
+     * 
+     * @param id the id of the article
+     * @return an Article
+     */
+    @Operation(summary= "Get a single article")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @GetMapping("")
+    public Article getById(
+            @Parameter(name="id") @RequestParam Long id) {
+        Article article = articleRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(Article.class, id));
+
+        return article;
+    }
+
+    /**
      * Create a new article
      * 
      * @param title title of the article
@@ -118,5 +135,23 @@ public class ArticlesController extends ApiController {
         articleRepository.save(article);
 
         return article;
+    }
+  
+    /**
+     * Delete an Article
+     * 
+     * @param id of the article to delete
+     * @return a message indicating the article was deleted
+     */
+    @Operation(summary= "Delete an Article")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @DeleteMapping("")
+    public Object deleteArticle(
+            @Parameter(name="id") @RequestParam Long id) {
+        Article article = articleRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(Article.class, id));
+
+        articleRepository.delete(article);
+        return genericMessage("Article with id %s deleted".formatted(id));
     }
 }
