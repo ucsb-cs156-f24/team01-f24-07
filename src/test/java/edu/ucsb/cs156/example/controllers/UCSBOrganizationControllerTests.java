@@ -56,7 +56,7 @@ public class UCSBOrganizationControllerTests extends ControllerTestCase {
 
 	@Test
 	public void logged_out_users_cannot_get_by_id() throws Exception {
-			mockMvc.perform(get("/api/ucsborganization?code=acm"))
+			mockMvc.perform(get("/api/ucsborganization?orgCode=acm"))
 							.andExpect(status().is(403)); // logged out users can't get by id
 	}
 
@@ -92,7 +92,7 @@ public class UCSBOrganizationControllerTests extends ControllerTestCase {
                 when(ucsbOrganizationRepository.findById(eq("SKY"))).thenReturn(Optional.of(sky));
 
                 // act
-                MvcResult response = mockMvc.perform(get("/api/ucsborganization?code=SKY"))
+                MvcResult response = mockMvc.perform(get("/api/ucsborganization?orgCode=SKY"))
                                 .andExpect(status().isOk()).andReturn();
 
                 // assert
@@ -112,7 +112,7 @@ public class UCSBOrganizationControllerTests extends ControllerTestCase {
                 when(ucsbOrganizationRepository.findById(eq("OSLI"))).thenReturn(Optional.empty());
 
                 // act
-                MvcResult response = mockMvc.perform(get("/api/ucsborganization?code=OSLI"))
+                MvcResult response = mockMvc.perform(get("/api/ucsborganization?orgCode=OSLI"))
                                 .andExpect(status().isNotFound()).andReturn();
 
                 // assert
