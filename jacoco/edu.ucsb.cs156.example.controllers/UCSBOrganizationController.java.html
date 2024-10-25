@@ -49,18 +49,18 @@ import jakarta.validation.Valid;
 
     /**
      * This method returns a single organization.
-     * @param code code of the diningcommons
-     * @return a single diningcommons
+     * @param orgCode code of the organizatino
+     * @return a single organization
      */
     @Operation(summary= &quot;Get a single organization&quot;)
     @PreAuthorize(&quot;hasRole('ROLE_USER')&quot;)
     @GetMapping(&quot;&quot;)
     public UCSBOrganization getById(
-            @Parameter(name=&quot;code&quot;) @RequestParam String code) {
-<span class="fc" id="L60">        UCSBOrganization commons = ucsbOrganizationRepository.findById(code)</span>
-<span class="fc" id="L61">                .orElseThrow(() -&gt; new EntityNotFoundException(UCSBOrganization.class, code));</span>
+            @Parameter(name=&quot;orgCode&quot;) @RequestParam String orgCode) {
+<span class="fc" id="L60">        UCSBOrganization organization = ucsbOrganizationRepository.findById(orgCode)</span>
+<span class="fc" id="L61">                .orElseThrow(() -&gt; new EntityNotFoundException(UCSBOrganization.class, orgCode));</span>
 
-<span class="fc" id="L63">        return commons;</span>
+<span class="fc" id="L63">        return organization;</span>
     }
 
     /**
