@@ -3,6 +3,7 @@ package edu.ucsb.cs156.example.controllers;
 import edu.ucsb.cs156.example.repositories.UserRepository;
 import edu.ucsb.cs156.example.testconfig.TestConfig;
 import edu.ucsb.cs156.example.ControllerTestCase;
+import edu.ucsb.cs156.example.entities.UCSBDate;
 import edu.ucsb.cs156.example.entities.UCSBDiningCommonsMenuItem;
 import edu.ucsb.cs156.example.repositories.UCSBDiningCommonsMenuItemRepository;
 
@@ -22,7 +23,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 
 import java.time.LocalDateTime;
-
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -56,7 +56,7 @@ public class UCSBDiningCommonsMenuItemControllerTests extends ControllerTestCase
                 mockMvc.perform(get("/api/ucsbdiningcommonsmenuitems/all"))
                                 .andExpect(status().is(200)); // logged
         }
-        
+
         // Authorization tests for /api/ucsbdiningcommonsmenuitems/post
         // (Perhaps should also have these for put and delete)
 
@@ -73,12 +73,49 @@ public class UCSBDiningCommonsMenuItemControllerTests extends ControllerTestCase
                                 .andExpect(status().is(403)); // only admins can post
         }
 
+        // // Tests with mocks for database actions
+        @WithMockUser(roles = { "USER" })
+        @Test
+        public void logged_in_user_can_get_all_items() throws Exception {
+
+                // arrange
+                UCSBDiningCommonsMenuItem ucsbDiningCommonsMenuItem1 = UCSBDiningCommonsMenuItem.builder()
+                                .diningCommonsCode("ortega")
+                                .name("Baked Pesto Pasta with Chicken")
+                                .station("Entree Specials")
+                                .build();
+
+                
+
+                UCSBDiningCommonsMenuItem ucsbDiningCommonsMenuItem2 = UCSBDiningCommonsMenuItem.builder()
+                                .diningCommonsCode("ortega")
+                                .name("Tofu Banh Mi Sandwich (v)")
+                                .station("Entree Specials")
+                                .build();
+
+                
+                
+                ArrayList<UCSBDiningCommonsMenuItem> expectedDiningCommonsMenuItem = new ArrayList<>();
+                expectedDiningCommonsMenuItem.addAll(Arrays.asList(ucsbDiningCommonsMenuItem1, ucsbDiningCommonsMenuItem2));
+
+                when(ucsbDiningCommonsMenuItemRepository.findAll()).thenReturn(expectedDiningCommonsMenuItem);
+
+                // act
+                MvcResult response = mockMvc.perform(get("/api/ucsbdiningcommonsmenuitems/all"))
+                                .andExpect(status().isOk()).andReturn();
+
+                // assert
+
+                verify(ucsbDiningCommonsMenuItemRepository, times(1)).findAll();
+                String expectedJson = mapper.writeValueAsString(expectedDiningCommonsMenuItem);
+                String responseString = response.getResponse().getContentAsString();
+                assertEquals(expectedJson, responseString);
+        }
 
         @WithMockUser(roles = { "ADMIN", "USER" })
         @Test
         public void an_admin_user_can_post_a_new_menu_item() throws Exception {
                 // arrange
-
 
                 UCSBDiningCommonsMenuItem ucsbDiningCommonsMenuItem1 = UCSBDiningCommonsMenuItem.builder()
                             .diningCommonsCode("ortega")
