@@ -53,6 +53,23 @@ public class UCSBDiningCommonsMenuItemController extends ApiController {
         Iterable<UCSBDiningCommonsMenuItem> ucsbDiningCommonsMenuItems = ucsbDiningCommonsMenuItemRepository.findAll();
         return ucsbDiningCommonsMenuItems;
     }
+    
+    /**
+     * Get a single date by id
+     * 
+     * @param id the id of the date
+     * @return a UCSBDate
+     */
+    @Operation(summary= "Get a single Dining Commons MenuItem by id")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @GetMapping("")
+    public UCSBDiningCommonsMenuItem getById(
+            @Parameter(name="id") @RequestParam Long id) {
+            UCSBDiningCommonsMenuItem ucsbDiningCommonsMenuItem = ucsbDiningCommonsMenuItemRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(UCSBDiningCommonsMenuItem.class, id));
+
+        return ucsbDiningCommonsMenuItem;
+    }
 
     /**
      * Create a new item
