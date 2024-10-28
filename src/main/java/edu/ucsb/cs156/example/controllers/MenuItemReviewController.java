@@ -58,8 +58,8 @@ public class MenuItemReviewController extends ApiController{
     /**
      * Get a single article by id
      * 
-     * @param id the id of the article
-     * @return an Article
+     * @param id the id of the review
+     * @return an MenuItemReview
      */
     @Operation(summary= "Get a single review")
     @PreAuthorize("hasRole('ROLE_USER')")
@@ -114,11 +114,8 @@ public class MenuItemReviewController extends ApiController{
     /**
      * update a single review
      * 
-     * @param itemId  id of review
-     * @param reviewerEmail review email 
-     * @param stars review stars
-     * @param dateReviewed date of review
-     * @param comments review comments
+     * @param id id of review
+     * @param incoming review to be updated
      * @return the saved review
      */
     @Operation(summary= "Update a single review")
@@ -145,11 +142,7 @@ public class MenuItemReviewController extends ApiController{
     /**
      * Delete a review
      * 
-     * @param itemId  id of review
-     * @param reviewerEmail review email 
-     * @param stars review stars
-     * @param dateReviewed date of review
-     * @param comments review comments
+     * @param id  id of review
      * @return the saved review
      */
     @Operation(summary= "Delete a review")
