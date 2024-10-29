@@ -58,8 +58,8 @@ import java.time.LocalDateTime;
     /**
      * Get a single article by id
      * 
-     * @param id the id of the article
-     * @return an Article
+     * @param id the id of the review
+     * @return an MenuItemReview
      */
     @Operation(summary= &quot;Get a single review&quot;)
     @PreAuthorize(&quot;hasRole('ROLE_USER')&quot;)
@@ -137,6 +137,24 @@ import java.time.LocalDateTime;
 <span class="fc" id="L137">        menuItemReviewRepository.save(menuItemReview);</span>
 
 <span class="fc" id="L139">        return menuItemReview;</span>
+    }
+
+    /**
+     * Delete a review
+     * 
+     * @param id  id of review
+     * @return the saved review
+     */
+    @Operation(summary= &quot;Delete a review&quot;)
+    @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
+    @DeleteMapping(&quot;&quot;)
+    public Object deleteMenuItemReview(
+            @Parameter(name=&quot;id&quot;) @RequestParam Long id) {
+<span class="fc" id="L153">        MenuItemReview menuItemReview = menuItemReviewRepository.findById(id)</span>
+<span class="fc" id="L154">                .orElseThrow(() -&gt; new EntityNotFoundException(MenuItemReview.class, id));</span>
+
+<span class="fc" id="L156">        menuItemReviewRepository.delete(menuItemReview);</span>
+<span class="fc" id="L157">        return genericMessage(&quot;MenuItemReview with id %s deleted&quot;.formatted(id));</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
