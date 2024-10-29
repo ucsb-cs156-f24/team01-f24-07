@@ -114,11 +114,8 @@ public class MenuItemReviewController extends ApiController{
     /**
      * update a single review
      * 
-     * @param itemId  id of review
-     * @param reviewerEmail review email 
-     * @param stars review stars
-     * @param dateReviewed date of review
-     * @param comments review comments
+     * @param id id of review
+     * @param incoming review to be updated
      * @return the saved review
      */
     @Operation(summary= "Update a single review")
