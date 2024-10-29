@@ -23,4 +23,4 @@ repo_name: "TBD"
 repo: ucsb-cs156-f24/team01-f24-07
 owner: ucsb-cs156-f24
 repo_name: team01-f24-07
-pull_requests: [{"author":{"id":"U_kgDOBo-IIw","is_bot":false,"login":"eug-wong","name":"Eugene Wong"},"headRefName":"ew-delete-endpoint-menuItemReview","number":64,"title":"added delete endpoint for MenuItemReview","url":"https://github.com/ucsb-cs156-f24/team01-f24-07/pull/64"}]
+pull_requests: []
