@@ -64,7 +64,7 @@ public class ArticlesControllerTests extends ControllerTestCase {
                 mockMvc.perform(get("/api/articles?id=7"))
                                 .andExpect(status().is(403)); // logged out users can't get by id
         }
-
+        
         // Authorization tests for /api/ucsbdates/post
         // (Perhaps should also have these for put and delete)
 

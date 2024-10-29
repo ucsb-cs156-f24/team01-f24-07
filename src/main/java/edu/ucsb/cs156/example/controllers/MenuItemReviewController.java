@@ -58,8 +58,8 @@ public class MenuItemReviewController extends ApiController{
     /**
      * Get a single article by id
      * 
-     * @param id the id of the article
-     * @return an Article
+     * @param id the id of the review
+     * @return an MenuItemReview
      */
     @Operation(summary= "Get a single review")
     @PreAuthorize("hasRole('ROLE_USER')")
@@ -137,5 +137,23 @@ public class MenuItemReviewController extends ApiController{
         menuItemReviewRepository.save(menuItemReview);
 
         return menuItemReview;
+    }
+
+    /**
+     * Delete a review
+     * 
+     * @param id  id of review
+     * @return the saved review
+     */
+    @Operation(summary= "Delete a review")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @DeleteMapping("")
+    public Object deleteMenuItemReview(
+            @Parameter(name="id") @RequestParam Long id) {
+        MenuItemReview menuItemReview = menuItemReviewRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(MenuItemReview.class, id));
+
+        menuItemReviewRepository.delete(menuItemReview);
+        return genericMessage("MenuItemReview with id %s deleted".formatted(id));
     }
 }
