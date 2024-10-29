@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: edu.ucsb.cs156.example.controllers.MenuItemReviewControllerTests
--------------------------------------------------------------------------------
-Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.295 s - in edu.ucsb.cs156.example.controllers.MenuItemReviewControllerTests
